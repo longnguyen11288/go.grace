@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -226,10 +227,7 @@ func Restart(listeners []Listener) (err error) {
 	}
 
 	// In order to keep the working directory the same as when we started.
-	wd, err := os.Getwd()
-	if err != nil {
-		return err
-	}
+	wd := filepath.Dir(os.Args[0])
 
 	// Pass on the environment and replace the old count key with the new one.
 	var env []string
